@@ -1,0 +1,28 @@
+services:
+  postgres:
+    image: postgres:16.0-alpine
+    ports:
+      - ${DATABASE_PORT}:5432
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+
+  postgres-tests:
+    image: postgres:16.0-alpine
+    ports:
+      - ${TEST_DATABASE_PORT}:5432
+    volumes:
+      - ./pgdata-tests:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${TEST_DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${TEST_DATABASE_PASSWORD}
+      POSTGRES_DB: ${TEST_DATABASE_NAME}
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
