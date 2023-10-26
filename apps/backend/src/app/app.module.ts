@@ -1,8 +1,11 @@
+import { BackendContactsFeatureModule } from '@booking/backend-contacts-feature';
+import { BackendContactsDataAccessModule } from '@booking/backend/contacts/data-access';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { AppResolver } from './app.resolver';
 
 @Module({
   imports: [
@@ -31,6 +34,11 @@ import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
       driver: ApolloDriver,
       autoSchemaFile: true,
     }),
+
+    BackendContactsDataAccessModule,
+    BackendContactsFeatureModule,
   ],
+
+  providers: [AppResolver],
 })
 export class AppModule {}

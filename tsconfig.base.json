@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@booking/backend-contacts-feature": [
+        "libs/backend/contacts/feature/src/index.ts"
+      ],
       "@booking/backend/contacts/data-access": [
         "libs/backend/contacts/data-access/src/index.ts"
       ]
