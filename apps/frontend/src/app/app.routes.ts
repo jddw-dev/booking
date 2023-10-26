@@ -1,3 +1,13 @@
 import { Route } from '@angular/router';
 
-export const appRoutes: Route[] = [];
+const contactsRoutes = () =>
+  import('@booking/frontend-contacts-feature-routing').then(
+    (x) => x.CONTACTS_ROUTES
+  );
+
+export const appRoutes: Route[] = [
+  {
+    path: '',
+    loadChildren: contactsRoutes,
+  },
+];

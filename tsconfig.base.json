@@ -20,6 +20,15 @@
       ],
       "@booking/backend/contacts/data-access": [
         "libs/backend/contacts/data-access/src/index.ts"
+      ],
+      "@booking/frontend-contacts-data-access": [
+        "libs/frontend/contacts/data-access/src/index.ts"
+      ],
+      "@booking/frontend-contacts-feature-list": [
+        "libs/frontend/contacts/feature/list/src/index.ts"
+      ],
+      "@booking/frontend-contacts-feature-routing": [
+        "libs/frontend/contacts/feature/routing/src/index.ts"
       ]
     }
   },
