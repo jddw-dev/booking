@@ -1,7 +1,7 @@
 import {
   Contact,
   ContactsService,
-} from '@booking/backend/contacts/data-access';
+} from '@booking/backend-contacts-data-access';
 import { Query, Resolver } from '@nestjs/graphql';
 
 @Resolver(() => Contact)

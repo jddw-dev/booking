@@ -1,4 +1,4 @@
-import { BackendContactsDataAccessModule } from '@booking/backend/contacts/data-access';
+import { BackendContactsDataAccessModule } from '@booking/backend-contacts-data-access';
 import { Module } from '@nestjs/common';
 import { ContactsResolver } from './resolvers/contacts.resolver';
 

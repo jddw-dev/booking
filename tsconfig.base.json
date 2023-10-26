@@ -14,11 +14,28 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
+    "strict": false,
     "paths": {
       "@booking/backend-contacts-feature": [
         "libs/backend/contacts/feature/src/index.ts"
       ],
-      "@booking/backend/contacts/data-access": [
+      "@booking/backend-firebase-feature": [
+        "libs/backend/firebase/feature/src/index.ts"
+      ],
+      "@booking/backend-users-data-access": [
+        "libs/backend/users/data-access/src/index.ts"
+      ],
+      "@booking/backend-users-feature": [
+        "libs/backend/users/feature/src/index.ts"
+      ],
+      "@booking/backend-auth-data-access": [
+        "libs/backend/auth/data-access/src/index.ts"
+      ],
+      "@booking/backend-auth-feature": [
+        "libs/backend/auth/feature/src/index.ts"
+      ],
+
+      "@booking/backend-contacts-data-access": [
         "libs/backend/contacts/data-access/src/index.ts"
       ],
       "@booking/frontend-contacts-data-access": [

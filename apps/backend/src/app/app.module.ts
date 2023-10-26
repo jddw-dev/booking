@@ -1,5 +1,8 @@
+import { BackendAuthFeatureModule } from '@booking/backend-auth-feature';
+import { BackendContactsDataAccessModule } from '@booking/backend-contacts-data-access';
 import { BackendContactsFeatureModule } from '@booking/backend-contacts-feature';
-import { BackendContactsDataAccessModule } from '@booking/backend/contacts/data-access';
+import { BackendFirebaseFeatureModule } from '@booking/backend-firebase-feature';
+import { BackendUsersDataAccessModule } from '@booking/backend-users-data-access';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -34,6 +37,11 @@ import { AppResolver } from './app.resolver';
       driver: ApolloDriver,
       autoSchemaFile: true,
     }),
+
+    BackendUsersDataAccessModule,
+
+    BackendFirebaseFeatureModule,
+    BackendAuthFeatureModule,
 
     BackendContactsDataAccessModule,
     BackendContactsFeatureModule,
