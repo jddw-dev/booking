@@ -29,6 +29,16 @@
           "libs/frontend/contacts/data-access/**/*.html"
         ]
       }
+    },
+    "codegen": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "npx graphql-codegen --config libs/frontend/contacts/data-access/codegen.ts"
+          }
+        ]
+      }
     }
   }
 }

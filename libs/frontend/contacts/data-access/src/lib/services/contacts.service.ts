@@ -1,17 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Apollo } from 'apollo-angular';
-import { map } from 'rxjs';
-import { GET_CONTACTS } from './contacts.operations';
+import { Observable, map } from 'rxjs';
+import { ContactsGQL, ContactsQuery } from '../../graphql';
 
 @Injectable({ providedIn: 'root' })
 export class ContactsService {
-  constructor(private apollo: Apollo) {}
+  constructor(private contactsGQL: ContactsGQL) {}
 
-  getContacts() {
-    return this.apollo
-      .watchQuery<any>({
-        query: GET_CONTACTS,
-      })
+  getContacts(): Observable<ContactsQuery['contacts']> {
+    return this.contactsGQL
+      .watch()
       .valueChanges.pipe(map((result) => result.data.contacts));
   }
 }
