@@ -1,6 +1,6 @@
 import { canActivate } from '@angular/fire/auth-guard';
 import { Route } from '@angular/router';
-import { userSpaceGuard } from './app.guards';
+import { authPagesGuard, userSpaceGuard } from './app.guards';
 
 const userSpaceRoutes = () =>
   import('@booking/frontend-user-space-feature-layout').then(
@@ -14,6 +14,7 @@ export const appRoutes: Route[] = [
       import('@booking/booking-frontend-auth-feature-shell').then(
         (m) => m.bookingFrontendAuthFeatureShellRoutes
       ),
+    ...canActivate(authPagesGuard),
   },
 
   {
