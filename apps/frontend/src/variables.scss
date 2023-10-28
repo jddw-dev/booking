@@ -1,0 +1,33 @@
+@import 'bootstrap/scss/functions', 'bootstrap/scss/variables',
+  'bootstrap/scss/mixins', 'bootstrap/scss/buttons';
+
+/* Base colors */
+$body-color: #495057;
+
+/* Theme colors */
+$theme-colors: (
+  'primary': #0e4d82,
+  'secondary': $secondary,
+  'success': $success,
+  'info': $info,
+  'warning': $warning,
+  'danger': $danger,
+  'light': $light,
+  'dark': $dark,
+);
+
+/* Modals */
+$modal-content-border-color: rgba(0, 0, 0, 0.2);
+$modal-content-border-width: 1px;
+$modal-content-border-radius: 0.3rem;
+$modal-footer-bg: #f8f9fa;
+
+/* Tables */
+$table-color: $body-color;
+$table-bg: transparent;
+$table-striped-color: $body-color;
+$table-striped-bg: #f8f9fa;
+
+$table-cell-vertical-align: middle;
+
+$table-cell-padding-y: 0.75rem;

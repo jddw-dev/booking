@@ -4,11 +4,14 @@ import {
   SocialRegisterInput,
 } from '@booking/backend-auth-data-access';
 import { User, UsersService } from '@booking/backend-users-data-access';
+import { Logger } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { GetUser, Public } from '../decorators';
 
 @Resolver('Auth')
 export class AuthResolver {
+  private logger: Logger = new Logger(AuthResolver.name);
+
   constructor(
     private authService: AuthService,
     private usersService: UsersService
@@ -16,6 +19,7 @@ export class AuthResolver {
 
   @Query(() => User)
   async me(@GetUser() user: User): Promise<User | null> {
+    this.logger.debug('me');
     return this.usersService.findOneBy({ uid: user.uid });
   }
 

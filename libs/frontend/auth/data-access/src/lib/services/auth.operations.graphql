@@ -1,0 +1,27 @@
+query Me {
+  me {
+    uid
+    email
+    role
+  }
+}
+
+mutation Register($email: String!, $password: String!) {
+  register(registerInput: { email: $email, password: $password }) {
+    uid
+    email
+    role
+    createDate
+    updateDate
+  }
+}
+
+mutation RegisterFromSocial($uid: String!, $email: String!) {
+  registerFromSocial(registerInput: { uid: $uid, email: $email }) {
+    uid
+    email
+    role
+    createDate
+    updateDate
+  }
+}

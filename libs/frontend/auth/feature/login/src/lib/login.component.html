@@ -1,0 +1,90 @@
+<div class="h-100">
+  <div class="d-flex h-100 justify-content-center align-items-center">
+    <div class="app-login-box mx-auto col-md-8">
+      <div class="modal-dialog w-100 mx-auto">
+        <div class="modal-content">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="modal-body">
+              <div class="h5 modal-title text-center">
+                <h4 class="mt-2">
+                  <div>Welcome,</div>
+                  <span>Please sign in to your account below.</span>
+                </h4>
+              </div>
+
+              <div class="mb-3">
+                <label for="emailInput" class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="emailInput"
+                  formControlName="email"
+                  [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                />
+                <div
+                  *ngIf="submitted && f.email.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.email.errors.required">Email is required</div>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="passwordInput" class="form-label">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="passwordInput"
+                  formControlName="password"
+                  [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+                />
+                <div
+                  *ngIf="submitted && f.password.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.password.errors.required">
+                    Password is required
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="error" class="text-danger text-center fw-semibold">
+                {{ error }}
+              </div>
+
+              <div class="divider"></div>
+
+              <div class="text-center">
+                Or <br />
+                <!-- <google-signin-btn
+                  (click)="onGoogleLogin()"
+                ></google-signin-btn> -->
+              </div>
+
+              <div class="divider"></div>
+
+              <h6 class="mb-0 text-center">
+                No account ?
+                <a routerLink="/auth/register" class="text-primary"
+                  >Sign up now</a
+                >
+              </h6>
+            </div>
+
+            <div class="modal-footer clearfix">
+              <div class="float-right">
+                <button [disabled]="loading" class="btn btn-primary">
+                  <span
+                    *ngIf="loading"
+                    class="spinner-border spinner-border-sm me-1"
+                  ></span>
+                  Login
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

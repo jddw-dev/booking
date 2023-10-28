@@ -1,31 +1,96 @@
 import { provideHttpClient } from '@angular/common/http';
-import { ApplicationConfig } from '@angular/core';
+import {
+  ApplicationConfig,
+  EnvironmentProviders,
+  importProvidersFrom,
+  inject,
+  isDevMode,
+} from '@angular/core';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { Auth, getAuth, provideAuth } from '@angular/fire/auth';
 import {
   provideRouter,
   withEnabledBlockingInitialNavigation,
 } from '@angular/router';
+import { ApolloLink, InMemoryCache } from '@apollo/client/core';
+import { setContext } from '@apollo/client/link/context';
 import {
-  ApolloClientOptions,
-  ApolloLink,
-  InMemoryCache,
-} from '@apollo/client/core';
+  AUTH_FEATURE_KEY,
+  AuthEffects,
+  authReducer,
+} from '@booking/frontend-auth-data-access';
+import { provideEffects } from '@ngrx/effects';
+import { provideState, provideStore } from '@ngrx/store';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { APOLLO_OPTIONS, Apollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
 import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
 
+// Firebase
+const firebaseProviders: EnvironmentProviders = importProvidersFrom([
+  provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+  provideAuth(() => getAuth()),
+]);
+
+function createApollo(httpLink: HttpLink) {
+  console.log('createApollo');
+  const auth: Auth = inject(Auth);
+
+  const basic = setContext((operation, context) => ({
+    headers: {
+      ContentType: 'application/json',
+    },
+  }));
+
+  const apolloAuth = setContext(async (operation, context) => {
+    return auth.currentUser?.getIdToken().then((token) => {
+      return {
+        headers: {
+          Authorization: token ? `Bearer ${token}` : '',
+        },
+      };
+    });
+  });
+
+  const link = ApolloLink.from([
+    basic,
+    apolloAuth,
+    httpLink.create({ uri: environment.apiUrl }),
+  ]);
+  const cache = new InMemoryCache();
+
+  return {
+    link,
+    cache,
+  };
+}
+
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideEffects(),
+    provideStore({}),
+
+    provideStoreDevtools({
+      maxAge: 25,
+      logOnly: !isDevMode(),
+      autoPause: true,
+      trace: false,
+      traceLimit: 75,
+    }),
+
+    provideState(AUTH_FEATURE_KEY, authReducer),
+    provideEffects(AuthEffects),
+
     provideRouter(appRoutes, withEnabledBlockingInitialNavigation()),
 
     provideHttpClient(),
 
+    firebaseProviders,
+
     {
       provide: APOLLO_OPTIONS,
-      useFactory: (httpLink: HttpLink): ApolloClientOptions<any> => ({
-        link: ApolloLink.from([httpLink.create({ uri: environment.apiUrl })]),
-        cache: new InMemoryCache(),
-      }),
+      useFactory: createApollo,
       deps: [HttpLink],
     },
     Apollo,

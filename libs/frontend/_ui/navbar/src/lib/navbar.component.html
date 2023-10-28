@@ -1,0 +1,20 @@
+<div class="app-header">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" routerLink="/">{{ title }}</a>
+
+      <div class="d-flex">
+        <a *ngIf="!user" class="btn btn-default" [routerLink]="loginRoute"
+          >Login</a
+        >
+
+        <div *ngIf="user">
+          Logged in as {{ user.email }}
+          <button *ngIf="user" class="btn btn-default" (click)="onLogout()">
+            Logout
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>

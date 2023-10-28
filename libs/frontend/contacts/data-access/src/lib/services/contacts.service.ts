@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { ContactsGQL, ContactsQuery } from '@booking/frontend-shared-graphql';
 import { Observable, map } from 'rxjs';
-import { ContactsGQL, ContactsQuery } from '../../graphql';
 
 @Injectable({ providedIn: 'root' })
 export class ContactsService {

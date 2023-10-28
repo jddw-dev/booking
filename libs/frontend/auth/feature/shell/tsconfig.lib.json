@@ -1,0 +1,29 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../../../../dist/out-tsc",
+    "declaration": true,
+    "declarationMap": true,
+    "inlineSources": true,
+    "types": []
+  },
+  "exclude": [
+    "src/**/*.spec.ts",
+    "src/test-setup.ts",
+    "jest.config.ts",
+    "src/**/*.test.ts"
+  ],
+  "include": [
+    "src/**/*.ts",
+    "../../data-access/src/lib/+state/auth.actions.ts",
+    "../../data-access/src/lib/+state/auth.effects.spec.ts",
+    "../../data-access/src/lib/+state/auth.effects.ts",
+    "../../data-access/src/lib/+state/auth.facade.spec.ts",
+    "../../data-access/src/lib/+state/auth.facade.ts",
+    "../../data-access/src/lib/+state/auth.models.ts",
+    "../../data-access/src/lib/+state/auth.reducer.spec.ts",
+    "../../data-access/src/lib/+state/auth.reducer.ts",
+    "../../data-access/src/lib/+state/auth.selectors.spec.ts",
+    "../../data-access/src/lib/+state/auth.selectors.ts"
+  ]
+}

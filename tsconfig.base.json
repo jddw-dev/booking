@@ -15,7 +15,17 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "strict": false,
+    "noPropertyAccessFromIndexSignature": false,
     "paths": {
+      "@booking/backend-auth-data-access": [
+        "libs/backend/auth/data-access/src/index.ts"
+      ],
+      "@booking/backend-auth-feature": [
+        "libs/backend/auth/feature/src/index.ts"
+      ],
+      "@booking/backend-contacts-data-access": [
+        "libs/backend/contacts/data-access/src/index.ts"
+      ],
       "@booking/backend-contacts-feature": [
         "libs/backend/contacts/feature/src/index.ts"
       ],
@@ -28,16 +38,22 @@
       "@booking/backend-users-feature": [
         "libs/backend/users/feature/src/index.ts"
       ],
-      "@booking/backend-auth-data-access": [
-        "libs/backend/auth/data-access/src/index.ts"
+      "@booking/booking-frontend-auth-feature-shell": [
+        "libs/frontend/auth/feature/shell/src/index.ts"
       ],
-      "@booking/backend-auth-feature": [
-        "libs/backend/auth/feature/src/index.ts"
+      "@booking/frontend-auth-data-access": [
+        "libs/frontend/auth/data-access/src/index.ts"
       ],
-
-      "@booking/backend-contacts-data-access": [
-        "libs/backend/contacts/data-access/src/index.ts"
+      "@booking/frontend-auth-feature-login": [
+        "libs/frontend/auth/feature/login/src/index.ts"
       ],
+      "@booking/frontend-auth-feature-register": [
+        "libs/frontend/auth/feature/register/src/index.ts"
+      ],
+      "@booking/frontend-auth-feature-routing": [
+        "libs/frontend/auth/feature/routing/src/index.ts"
+      ],
+      "@booking/frontend-auth-util": ["libs/frontend/auth/util/src/index.ts"],
       "@booking/frontend-contacts-data-access": [
         "libs/frontend/contacts/data-access/src/index.ts"
       ],
@@ -46,6 +62,13 @@
       ],
       "@booking/frontend-contacts-feature-routing": [
         "libs/frontend/contacts/feature/routing/src/index.ts"
+      ],
+      "@booking/frontend-shared-graphql": [
+        "libs/frontend/shared/graphql/src/index.ts"
+      ],
+      "@booking/frontend-ui-navbar": ["libs/frontend/_ui/navbar/src/index.ts"],
+      "@booking/frontend-user-space-feature-layout": [
+        "libs/frontend/user-space/feature/layout/src/index.ts"
       ]
     }
   },

@@ -1,5 +1,4 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Expose } from 'class-transformer';
 import {
   Column,
   CreateDateColumn,
@@ -15,12 +14,6 @@ export class User {
   @PrimaryColumn()
   @Field()
   uid: string;
-
-  @Expose()
-  @Field()
-  get id(): string {
-    return this.uid;
-  }
 
   @Column({ unique: true })
   @Field()
