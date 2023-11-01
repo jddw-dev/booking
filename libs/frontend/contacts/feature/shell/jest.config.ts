@@ -1,10 +1,10 @@
 /* eslint-disable */
 export default {
-  displayName: 'frontend-contacts-feature-routing',
+  displayName: 'frontend-contacts-feature-shell',
   preset: '../../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   coverageDirectory:
-    '../../../../../coverage/libs/frontend/contacts/feature/routing',
+    '../../../../../coverage/libs/frontend/contacts/feature/shell',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

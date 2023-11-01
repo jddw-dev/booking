@@ -24,9 +24,7 @@ export class BookingAuthFeatureLoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authFacade: AuthFacade
-  ) {
-    // Todo : redirect if user is logged in ?
-  }
+  ) {}
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({

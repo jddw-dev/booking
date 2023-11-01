@@ -48,6 +48,7 @@
     "pg": "^8.11.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~7.8.0",
+    "simplebar-angular": "^3.2.4",
     "tslib": "^2.3.0",
     "typeorm": "^0.3.17",
     "zone.js": "~0.13.0"

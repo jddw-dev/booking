@@ -65,9 +65,6 @@ export class AuthService {
   me(): Observable<MeQuery['me']> {
     return this.meGql.watch().valueChanges.pipe(
       map((result) => {
-        console.log('result:');
-        console.log(result);
-
         return result.data.me;
       })
     );

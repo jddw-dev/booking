@@ -1,0 +1,27 @@
+<div class="sidebar">
+  <ngx-simplebar class="sidebar-content">
+    <a class="sidebar-brand" [routerLink]="brandLink">
+      <span class="sidebar-brand-text">{{ brand }}</span>
+    </a>
+
+    <ul class="sidebar-menu">
+      <li *ngFor="let link of links" class="menu-item">
+        <a
+          class="menu-link"
+          [routerLink]="link.href"
+          routerLinkActive="menu-link--active"
+          [routerLinkActiveOptions]="{
+            exact: link.href === '/' ? true : false
+          }"
+        >
+          <fa-icon
+            *ngIf="link.icon"
+            class="menu-icon"
+            [icon]="link.icon"
+          ></fa-icon>
+          {{ link.text }}
+        </a>
+      </li>
+    </ul>
+  </ngx-simplebar>
+</div>

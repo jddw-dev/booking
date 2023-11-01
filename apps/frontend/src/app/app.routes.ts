@@ -2,11 +2,6 @@ import { canActivate } from '@angular/fire/auth-guard';
 import { Route } from '@angular/router';
 import { authPagesGuard, userSpaceGuard } from './app.guards';
 
-const userSpaceRoutes = () =>
-  import('@booking/frontend-user-space-feature-layout').then(
-    (x) => x.USER_SPACE_ROUTES
-  );
-
 export const appRoutes: Route[] = [
   {
     path: 'auth',
@@ -19,7 +14,10 @@ export const appRoutes: Route[] = [
 
   {
     path: '',
-    loadChildren: userSpaceRoutes,
+    loadChildren: () =>
+      import('@booking/frontend-userspace-feature-shell').then(
+        (m) => m.frontendUserspaceFeatureShellRoutes
+      ),
     ...canActivate(userSpaceGuard),
   },
 ];

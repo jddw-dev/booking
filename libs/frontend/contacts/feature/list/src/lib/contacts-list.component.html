@@ -1,5 +1,23 @@
 <h1>Contacts</h1>
 
-<div *ngFor="let contact of contacts">
-  <strong>{{ contact.id }}</strong> : {{ contact.name }}
+<div class="card">
+  <div class="card-body">
+    <table class="table table-responsive table-striped">
+      <thead>
+        <tr>
+          <th>Prénom</th>
+          <th>Nom</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let contact of contacts$ | async">
+          <td>{{ contact.firstname }}</td>
+          <td>{{ contact.name }}</td>
+          <td>{{ contact.email }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

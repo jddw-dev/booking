@@ -21,8 +21,16 @@ export type Scalars = {
 
 export type Contact = {
   __typename?: 'Contact';
+  comments?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  email?: Maybe<Scalars['String']['output']>;
+  firstname?: Maybe<Scalars['String']['output']>;
   id: Scalars['String']['output'];
-  name: Scalars['String']['output'];
+  jobName?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  owner: User;
+  phone?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 export type Mutation = {
@@ -97,7 +105,7 @@ export type RegisterFromSocialMutation = { __typename?: 'Mutation', registerFrom
 export type ContactsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ContactsQuery = { __typename?: 'Query', contacts: Array<{ __typename?: 'Contact', id: string, name: string }> };
+export type ContactsQuery = { __typename?: 'Query', contacts: Array<{ __typename?: 'Contact', id: string, firstname?: string | null, name?: string | null, email?: string | null }> };
 
 export const MeDocument = gql`
     query Me {
@@ -167,7 +175,9 @@ export const ContactsDocument = gql`
     query Contacts {
   contacts {
     id
+    firstname
     name
+    email
   }
 }
     `;
