@@ -17,7 +17,11 @@ export interface ContactsPartialState {
 }
 
 export const contactsAdapter: EntityAdapter<ContactsEntity> =
-  createEntityAdapter<ContactsEntity>();
+  createEntityAdapter<ContactsEntity>({
+    sortComparer: (a: ContactsEntity, b: ContactsEntity): number => {
+      return a.createdAt > b.createdAt ? 1 : -1;
+    },
+  });
 
 export const initialContactsState: ContactsState =
   contactsAdapter.getInitialState({

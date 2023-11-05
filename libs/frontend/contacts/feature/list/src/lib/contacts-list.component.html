@@ -1,3 +1,7 @@
+<div class="float-end">
+  <a class="btn btn-secondary btn-sm" [routerLink]="['./import']">Importer</a>
+</div>
+
 <h1>Contacts</h1>
 
 <div class="card">
@@ -8,6 +12,9 @@
           <th>Prénom</th>
           <th>Nom</th>
           <th>Email</th>
+          <th>Téléphone</th>
+          <th>Poste</th>
+          <th>Commentaire</th>
         </tr>
       </thead>
 
@@ -16,6 +23,9 @@
           <td>{{ contact.firstname }}</td>
           <td>{{ contact.name }}</td>
           <td>{{ contact.email }}</td>
+          <td>{{ contact.phone }}</td>
+          <td>{{ contact.jobName }}</td>
+          <td>{{ contact.comments }}</td>
         </tr>
       </tbody>
     </table>

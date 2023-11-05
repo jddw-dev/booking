@@ -58,6 +58,9 @@
       "@booking/frontend-contacts-data-access": [
         "libs/frontend/contacts/data-access/src/index.ts"
       ],
+      "@booking/frontend-contacts-feature-import": [
+        "libs/frontend/contacts/feature/import/src/index.ts"
+      ],
       "@booking/frontend-contacts-feature-list": [
         "libs/frontend/contacts/feature/list/src/index.ts"
       ],
@@ -79,6 +82,9 @@
       ],
       "@booking/frontend-userspace-feature-shell": [
         "libs/frontend/user-space/feature/shell/src/index.ts"
+      ],
+      "@booking/frontend-xls-parser-feature-xls-reader": [
+        "libs/frontend/xls-parser/feature/xls-reader/src/index.ts"
       ]
     }
   },

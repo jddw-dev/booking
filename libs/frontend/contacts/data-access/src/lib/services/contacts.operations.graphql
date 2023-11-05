@@ -1,8 +1,27 @@
 query Contacts {
   contacts {
     id
+    createdAt
+    updatedAt
     firstname
     name
     email
+    phone
+    jobName
+    comments
+  }
+}
+
+mutation createContacts($contactCreateDtos: [ContactCreateDto!]!) {
+  createContacts(contactCreateDtos: $contactCreateDtos) {
+    id
+    createdAt
+    updatedAt
+    firstname
+    name
+    email
+    phone
+    jobName
+    comments
   }
 }

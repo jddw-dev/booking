@@ -19,6 +19,11 @@ import {
   AuthEffects,
   authReducer,
 } from '@booking/frontend-auth-data-access';
+import {
+  XLS_PARSER_FEATURE_KEY,
+  XlsParserEffects,
+  xlsParserReducer,
+} from '@booking/frontend-xls-parser-feature-xls-reader';
 import { provideEffects } from '@ngrx/effects';
 import { provideState, provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
@@ -81,6 +86,9 @@ export const appConfig: ApplicationConfig = {
 
     provideState(AUTH_FEATURE_KEY, authReducer),
     provideEffects(AuthEffects),
+
+    provideState(XLS_PARSER_FEATURE_KEY, xlsParserReducer),
+    provideEffects(XlsParserEffects),
 
     provideRouter(appRoutes, withEnabledBlockingInitialNavigation()),
 

@@ -5,6 +5,10 @@ import {
   ContactsEffects,
   ContactsFacade,
 } from '@booking/frontend-contacts-data-access';
+import {
+  BookingContactsImportComponent,
+  BookingContactsMapPropertiesComponent,
+} from '@booking/frontend-contacts-feature-import';
 import { BookingContactsListComponent } from '@booking/frontend-contacts-feature-list';
 import { provideEffects } from '@ngrx/effects';
 import { provideState } from '@ngrx/store';
@@ -12,7 +16,7 @@ import { provideState } from '@ngrx/store';
 export const frontendContactsFeatureShellRoutes: Routes = [
   {
     path: '',
-    component: BookingContactsListComponent,
+
     providers: [
       ContactsFacade,
       provideState(
@@ -20,6 +24,23 @@ export const frontendContactsFeatureShellRoutes: Routes = [
         fromContacts.contactsReducer
       ),
       provideEffects(ContactsEffects),
+    ],
+
+    children: [
+      {
+        path: '',
+        component: BookingContactsListComponent,
+      },
+
+      {
+        path: 'import',
+        component: BookingContactsImportComponent,
+      },
+
+      {
+        path: 'map-properties',
+        component: BookingContactsMapPropertiesComponent,
+      },
     ],
   },
 ];

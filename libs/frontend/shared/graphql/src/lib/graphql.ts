@@ -33,10 +33,31 @@ export type Contact = {
   updatedAt: Scalars['DateTime']['output'];
 };
 
+export type ContactCreateDto = {
+  comments?: InputMaybe<Scalars['String']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  firstname?: InputMaybe<Scalars['String']['input']>;
+  jobName?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  phone?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
+  createContact: Contact;
+  createContacts: Array<Contact>;
   register: User;
   registerFromSocial: User;
+};
+
+
+export type MutationCreateContactArgs = {
+  contactCreateDto: ContactCreateDto;
+};
+
+
+export type MutationCreateContactsArgs = {
+  contactCreateDtos: Array<ContactCreateDto>;
 };
 
 
@@ -105,7 +126,14 @@ export type RegisterFromSocialMutation = { __typename?: 'Mutation', registerFrom
 export type ContactsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ContactsQuery = { __typename?: 'Query', contacts: Array<{ __typename?: 'Contact', id: string, firstname?: string | null, name?: string | null, email?: string | null }> };
+export type ContactsQuery = { __typename?: 'Query', contacts: Array<{ __typename?: 'Contact', id: string, createdAt: any, updatedAt: any, firstname?: string | null, name?: string | null, email?: string | null, phone?: string | null, jobName?: string | null, comments?: string | null }> };
+
+export type CreateContactsMutationVariables = Exact<{
+  contactCreateDtos: Array<ContactCreateDto> | ContactCreateDto;
+}>;
+
+
+export type CreateContactsMutation = { __typename?: 'Mutation', createContacts: Array<{ __typename?: 'Contact', id: string, createdAt: any, updatedAt: any, firstname?: string | null, name?: string | null, email?: string | null, phone?: string | null, jobName?: string | null, comments?: string | null }> };
 
 export const MeDocument = gql`
     query Me {
@@ -175,9 +203,14 @@ export const ContactsDocument = gql`
     query Contacts {
   contacts {
     id
+    createdAt
+    updatedAt
     firstname
     name
     email
+    phone
+    jobName
+    comments
   }
 }
     `;
@@ -187,6 +220,32 @@ export const ContactsDocument = gql`
   })
   export class ContactsGQL extends Apollo.Query<ContactsQuery, ContactsQueryVariables> {
     override document = ContactsDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const CreateContactsDocument = gql`
+    mutation createContacts($contactCreateDtos: [ContactCreateDto!]!) {
+  createContacts(contactCreateDtos: $contactCreateDtos) {
+    id
+    createdAt
+    updatedAt
+    firstname
+    name
+    email
+    phone
+    jobName
+    comments
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class CreateContactsGQL extends Apollo.Mutation<CreateContactsMutation, CreateContactsMutationVariables> {
+    override document = CreateContactsDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);
