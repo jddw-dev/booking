@@ -1,47 +1,45 @@
-import { EntityAdapter, EntityState, createEntityAdapter } from '@ngrx/entity';
 import { Action, createReducer, on } from '@ngrx/store';
 
-import * as ContactsActions from './contacts.actions';
+import { ContactsCrudActions } from './contacts.actions';
 import { ContactsEntity } from './contacts.models';
 
 export const CONTACTS_FEATURE_KEY = 'contacts';
 
-export interface ContactsState extends EntityState<ContactsEntity> {
-  selectedId?: string | number; // which Contacts record has been selected
-  loaded: boolean; // has the Contacts list been loaded
-  error?: string | null; // last known error (if any)
+export interface ContactsState {
+  contacts: ContactsEntity[];
+  error: any;
+  isLoading: boolean;
+  total: number;
+  currentPage: number;
+  perPage: number;
 }
 
-export interface ContactsPartialState {
-  readonly [CONTACTS_FEATURE_KEY]: ContactsState;
-}
-
-export const contactsAdapter: EntityAdapter<ContactsEntity> =
-  createEntityAdapter<ContactsEntity>({
-    sortComparer: (a: ContactsEntity, b: ContactsEntity): number => {
-      return a.createdAt > b.createdAt ? 1 : -1;
-    },
-  });
-
-export const initialContactsState: ContactsState =
-  contactsAdapter.getInitialState({
-    // set initial required properties
-    loaded: false,
-  });
+export const initialContactsState: ContactsState = {
+  contacts: [],
+  error: null,
+  isLoading: false,
+  total: 0,
+  currentPage: 1,
+  perPage: 50,
+};
 
 const reducer = createReducer(
   initialContactsState,
-  on(ContactsActions.initContacts, (state) => ({
+  on(ContactsCrudActions.getContacts, (state, { page }) => ({
     ...state,
-    loaded: false,
-    error: null,
+    isLoading: true,
+    currentPage: page,
   })),
-  on(ContactsActions.loadContactsSuccess, (state, { contacts }) =>
-    contactsAdapter.setAll(contacts, { ...state, loaded: true })
-  ),
-  on(ContactsActions.loadContactsFailure, (state, { error }) => ({
+  on(ContactsCrudActions.getContactsSuccess, (state, { datas }) => ({
+    ...state,
+    contacts: datas.contacts,
+    total: datas.count,
+    isLoading: false,
+  })),
+  on(ContactsCrudActions.getContactsFailure, (state, { error }) => ({
     ...state,
     error,
+    isLoading: false,
   }))
 );
 

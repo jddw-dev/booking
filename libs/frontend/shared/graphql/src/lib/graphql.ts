@@ -73,8 +73,15 @@ export type MutationRegisterFromSocialArgs = {
 export type Query = {
   __typename?: 'Query';
   contacts: Array<Contact>;
+  contactsCount: Scalars['Float']['output'];
   me: User;
   version: Scalars['String']['output'];
+};
+
+
+export type QueryContactsArgs = {
+  skip?: Scalars['Int']['input'];
+  take?: Scalars['Int']['input'];
 };
 
 export type RegisterInput = {
@@ -123,10 +130,13 @@ export type RegisterFromSocialMutationVariables = Exact<{
 
 export type RegisterFromSocialMutation = { __typename?: 'Mutation', registerFromSocial: { __typename?: 'User', uid: string, email: string, role: UserRole, createDate: any, updateDate: any } };
 
-export type ContactsQueryVariables = Exact<{ [key: string]: never; }>;
+export type ContactsQueryVariables = Exact<{
+  skip: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
+}>;
 
 
-export type ContactsQuery = { __typename?: 'Query', contacts: Array<{ __typename?: 'Contact', id: string, createdAt: any, updatedAt: any, firstname?: string | null, name?: string | null, email?: string | null, phone?: string | null, jobName?: string | null, comments?: string | null }> };
+export type ContactsQuery = { __typename?: 'Query', contactsCount: number, contacts: Array<{ __typename?: 'Contact', id: string, createdAt: any, updatedAt: any, firstname?: string | null, name?: string | null, email?: string | null, phone?: string | null, jobName?: string | null, comments?: string | null }> };
 
 export type CreateContactsMutationVariables = Exact<{
   contactCreateDtos: Array<ContactCreateDto> | ContactCreateDto;
@@ -200,8 +210,9 @@ export const RegisterFromSocialDocument = gql`
     }
   }
 export const ContactsDocument = gql`
-    query Contacts {
-  contacts {
+    query Contacts($skip: Int!, $take: Int!) {
+  contactsCount
+  contacts(skip: $skip, take: $take) {
     id
     createdAt
     updatedAt

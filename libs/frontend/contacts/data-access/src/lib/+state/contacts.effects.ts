@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { ContactsService } from '../services/contacts.service';
-import * as ContactsActions from './contacts.actions';
+import { ContactsCrudActions } from './contacts.actions';
 
 @Injectable()
 export class ContactsEffects {
@@ -12,12 +12,19 @@ export class ContactsEffects {
 
   init$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(ContactsActions.initContacts),
-      switchMap(() =>
-        this.contactsService.getContacts().pipe(
-          map((contacts) => ContactsActions.loadContactsSuccess({ contacts })),
+      ofType(ContactsCrudActions.getContacts),
+      switchMap(({ page }) =>
+        this.contactsService.getContacts(page).pipe(
+          map((datas) =>
+            ContactsCrudActions.getContactsSuccess({
+              datas: {
+                count: datas.count,
+                contacts: datas.data,
+              },
+            })
+          ),
           catchError((error) =>
-            of(ContactsActions.loadContactsFailure({ error }))
+            of(ContactsCrudActions.getContactsFailure({ error }))
           )
         )
       )

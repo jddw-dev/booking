@@ -13,10 +13,24 @@ export class ContactsService {
     private createContactsGQL: CreateContactsGQL
   ) {}
 
-  getContacts(): Observable<ContactsQuery['contacts']> {
+  getContacts(
+    page = 1,
+    perPage = 25
+  ): Observable<{
+    data: ContactsQuery['contacts'];
+    count: ContactsQuery['contactsCount'];
+  }> {
     return this.contactsGQL
-      .watch()
-      .valueChanges.pipe(map((result) => result.data.contacts));
+      .watch({
+        skip: (page - 1) * perPage,
+        take: perPage,
+      })
+      .valueChanges.pipe(
+        map((result) => ({
+          data: result.data.contacts,
+          count: result.data.contactsCount,
+        }))
+      );
   }
 
   // TODO : replace any with good type !

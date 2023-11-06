@@ -1,8 +1,7 @@
 import { Injectable, inject } from '@angular/core';
-import { select, Store, Action } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 
-import * as ContactsActions from './contacts.actions';
-import * as ContactsFeature from './contacts.reducer';
+import { ContactsCrudActions } from './contacts.actions';
 import * as ContactsSelectors from './contacts.selectors';
 
 @Injectable()
@@ -13,15 +12,22 @@ export class ContactsFacade {
    * Combine pieces of state using createSelector,
    * and expose them as observables through the facade.
    */
-  loaded$ = this.store.pipe(select(ContactsSelectors.selectContactsLoaded));
-  allContacts$ = this.store.pipe(select(ContactsSelectors.selectAllContacts));
-  selectedContacts$ = this.store.pipe(select(ContactsSelectors.selectEntity));
+  isLoading$ = this.store.pipe(select(ContactsSelectors.selectIsLoading));
+  contacts$ = this.store.pipe(select(ContactsSelectors.selectContacts));
+  paginationDetails$ = this.store.pipe(
+    select(ContactsSelectors.selectPaginationDetails)
+  );
+  currentPage$ = this.store.pipe(select(ContactsSelectors.selectCurrentPage));
 
   /**
    * Use the initialization action to perform one
    * or more tasks in your Effects.
    */
   init() {
-    this.store.dispatch(ContactsActions.initContacts());
+    this.store.dispatch(ContactsCrudActions.getContacts({ page: 1 }));
+  }
+
+  getContacts(page = 1) {
+    this.store.dispatch(ContactsCrudActions.getContacts({ page }));
   }
 }

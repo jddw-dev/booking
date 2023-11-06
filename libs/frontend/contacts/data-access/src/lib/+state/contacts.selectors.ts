@@ -1,43 +1,43 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import {
-  CONTACTS_FEATURE_KEY,
-  ContactsState,
-  contactsAdapter,
-} from './contacts.reducer';
+import { CONTACTS_FEATURE_KEY, ContactsState } from './contacts.reducer';
 
 // Lookup the 'Contacts' feature state managed by NgRx
 export const selectContactsState =
   createFeatureSelector<ContactsState>(CONTACTS_FEATURE_KEY);
 
-const { selectAll, selectEntities } = contactsAdapter.getSelectors();
-
-export const selectContactsLoaded = createSelector(
+export const selectContacts = createSelector(
   selectContactsState,
-  (state: ContactsState) => state.loaded
+  (state) => state.contacts
 );
 
-export const selectContactsError = createSelector(
+export const selectTotal = createSelector(
   selectContactsState,
-  (state: ContactsState) => state.error
+  (state) => state.total
 );
 
-export const selectAllContacts = createSelector(
-  selectContactsState,
-  (state: ContactsState) => selectAll(state)
+export const selectNbPages = createSelector(selectContactsState, (state) =>
+  Math.ceil(state.total / state.perPage)
 );
 
-export const selectContactsEntities = createSelector(
+export const selectPaginationDetails = createSelector(
   selectContactsState,
-  (state: ContactsState) => selectEntities(state)
+  (state) => ({
+    nbPages: Math.ceil(state.total / state.perPage),
+    currentPage: state.currentPage,
+  })
 );
 
-export const selectSelectedId = createSelector(
+export const selectCurrentPage = createSelector(
   selectContactsState,
-  (state: ContactsState) => state.selectedId
+  (state) => state.currentPage
 );
 
-export const selectEntity = createSelector(
-  selectContactsEntities,
-  selectSelectedId,
-  (entities, selectedId) => (selectedId ? entities[selectedId] : undefined)
+export const selectPerPage = createSelector(
+  selectContactsState,
+  (state) => state.perPage
+);
+
+export const selectIsLoading = createSelector(
+  selectContactsState,
+  (state) => state.isLoading
 );

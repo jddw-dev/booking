@@ -3,6 +3,7 @@ import {
   Contact,
   ContactCreateDto,
   ContactsService,
+  FetchContactsArgs,
 } from '@booking/backend-contacts-data-access';
 import { User } from '@booking/backend-users-data-access';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
@@ -11,9 +12,14 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 export class ContactsResolver {
   constructor(private readonly contactsService: ContactsService) {}
 
-  @Query((returns) => [Contact])
-  async contacts(): Promise<Contact[]> {
-    return this.contactsService.findAll();
+  @Query(() => Number, { name: 'contactsCount' })
+  async getCount(): Promise<number> {
+    return this.contactsService.count();
+  }
+
+  @Query(() => [Contact], { name: 'contacts' })
+  async findAll(@Args() args: FetchContactsArgs): Promise<Contact[]> {
+    return this.contactsService.findAll(args);
   }
 
   @Mutation((returns) => Contact)

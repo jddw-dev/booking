@@ -1,14 +1,11 @@
-import { createAction, props } from '@ngrx/store';
-import { ContactsEntity } from './contacts.models';
+import { createActionGroup, props } from '@ngrx/store';
+import { ContactsDatas } from './contacts.models';
 
-export const initContacts = createAction('[Contacts Page] Init');
-
-export const loadContactsSuccess = createAction(
-  '[Contacts/API] Load Contacts Success',
-  props<{ contacts: ContactsEntity[] }>()
-);
-
-export const loadContactsFailure = createAction(
-  '[Contacts/API] Load Contacts Failure',
-  props<{ error: any }>()
-);
+export const ContactsCrudActions = createActionGroup({
+  source: 'Contacts/Crud',
+  events: {
+    'Get Contacts': props<{ page: number; perPage?: number }>(),
+    'Get Contacts Success': props<{ datas: ContactsDatas }>(),
+    'Get Contacts Failure': props<{ error: any }>(),
+  },
+});

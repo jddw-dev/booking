@@ -21,3 +21,4 @@ npx nx run frontend-shared-graphql:codegen
 - Modèles d'email
 - Envoi d'email à un contact
 - Séquences d'email
+- Implémenter tests unitaires / E2E !!

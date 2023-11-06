@@ -1,5 +1,6 @@
-query Contacts {
-  contacts {
+query Contacts($skip: Int!, $take: Int!) {
+  contactsCount
+  contacts(skip: $skip, take: $take) {
     id
     createdAt
     updatedAt

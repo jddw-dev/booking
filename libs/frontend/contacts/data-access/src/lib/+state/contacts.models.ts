@@ -9,3 +9,8 @@ export class ContactsEntity {
   jobName?: string | null;
   comments?: string | null;
 }
+
+export class ContactsDatas {
+  count: number;
+  contacts: ContactsEntity[];
+}

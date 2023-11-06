@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { FetchContactsArgs } from '../dtos';
 import { Contact } from '../entities/contact';
 
 @Injectable()
@@ -12,8 +13,26 @@ export class ContactsService {
     private readonly contactRepository: Repository<Contact>
   ) {}
 
-  async findAll(): Promise<Contact[]> {
-    return this.contactRepository.find();
+  async count(): Promise<number> {
+    return this.contactRepository.count();
+  }
+
+  async findAll(
+    args: FetchContactsArgs = { skip: 0, take: 50 }
+  ): Promise<Contact[]> {
+    return this.contactRepository.find({
+      skip: args.skip,
+      take: args.take,
+    });
+  }
+
+  async findAllAndCount(
+    args: FetchContactsArgs = { skip: 0, take: 50 }
+  ): Promise<[Contact[], number]> {
+    return this.contactRepository.findAndCount({
+      skip: args.skip,
+      take: args.take,
+    });
   }
 
   async findOne(id: string): Promise<Contact | null> {
