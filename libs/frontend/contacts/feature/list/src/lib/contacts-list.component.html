@@ -9,7 +9,6 @@
     <table class="table table-responsive table-striped">
       <thead>
         <tr>
-          <th>Prénom</th>
           <th>Nom</th>
           <th>Email</th>
           <th>Téléphone</th>
@@ -20,8 +19,7 @@
 
       <tbody>
         <tr *ngFor="let contact of contacts$ | async">
-          <td>{{ contact.firstname }}</td>
-          <td>{{ contact.name }}</td>
+          <td>{{ contact.firstname }} {{ contact.name }}</td>
           <td>{{ contact.email }}</td>
           <td>{{ contact.phone }}</td>
           <td>{{ contact.jobName }}</td>
