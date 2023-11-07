@@ -70,6 +70,9 @@
       "@booking/frontend-contacts-feature-shell": [
         "libs/frontend/contacts/feature/shell/src/index.ts"
       ],
+      "@booking/frontend-pagination-data-access": [
+        "libs/frontend/pagination/data-access/src/index.ts"
+      ],
       "@booking/frontend-shared-graphql": [
         "libs/frontend/shared/graphql/src/index.ts"
       ],

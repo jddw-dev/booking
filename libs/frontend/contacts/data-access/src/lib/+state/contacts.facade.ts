@@ -14,10 +14,9 @@ export class ContactsFacade {
    */
   isLoading$ = this.store.pipe(select(ContactsSelectors.selectIsLoading));
   contacts$ = this.store.pipe(select(ContactsSelectors.selectContacts));
-  paginationDetails$ = this.store.pipe(
-    select(ContactsSelectors.selectPaginationDetails)
-  );
+  pagination$ = this.store.pipe(select(ContactsSelectors.selectPagination));
   currentPage$ = this.store.pipe(select(ContactsSelectors.selectCurrentPage));
+  total$ = this.store.pipe(select(ContactsSelectors.selectTotal));
 
   /**
    * Use the initialization action to perform one

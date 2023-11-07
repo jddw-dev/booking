@@ -1,4 +1,5 @@
 import { Injectable, inject } from '@angular/core';
+import { PAGINATION_CONSTANTS } from '@booking/frontend-pagination-data-access';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { ContactsService } from '../services/contacts.service';
@@ -13,13 +14,15 @@ export class ContactsEffects {
   init$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ContactsCrudActions.getContacts),
-      switchMap(({ page }) =>
+      switchMap(({ page, perPage }) =>
         this.contactsService.getContacts(page).pipe(
           map((datas) =>
             ContactsCrudActions.getContactsSuccess({
               datas: {
-                count: datas.count,
-                contacts: datas.data,
+                page: page,
+                perPage: perPage ?? PAGINATION_CONSTANTS.DEFAULT_PER_PAGE,
+                total: datas.count,
+                items: datas.contacts,
               },
             })
           ),

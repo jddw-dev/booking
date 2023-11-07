@@ -6,6 +6,8 @@
 
 <div class="card">
   <div class="card-body">
+    <p>{{ total$ | async }} contacts</p>
+
     <table class="table table-responsive table-striped">
       <thead>
         <tr>
@@ -30,10 +32,14 @@
 
     <nav
       aria-label="Contacts pagination"
-      *ngrxLet="currentPage$ as currentPage"
+      *ngIf="currentPage$ | async as currentPage"
     >
       <ul class="pagination pagination-sm justify-content-center">
-        <li class="page-item" [ngClass]="{ disabled: currentPage === 1 }">
+        <li
+          class="page-item"
+          [ngClass]="{ disabled: currentPage === 1 }"
+          (click)="goToPage(currentPage - 1)"
+        >
           <span class="page-link" aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
             <span class="sr-only">Previous</span>
@@ -51,7 +57,11 @@
           <span *ngIf="page === -1" class="page-link">...</span>
         </li>
 
-        <li class="page-item">
+        <li
+          class="page-item"
+          [ngClass]="{ disabled: currentPage === nbPages }"
+          (click)="goToPage(currentPage + 1)"
+        >
           <span class="page-link" aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
             <span class="sr-only">Next</span>

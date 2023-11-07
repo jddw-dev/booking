@@ -17,7 +17,7 @@ export class ContactsService {
     page = 1,
     perPage = 25
   ): Observable<{
-    data: ContactsQuery['contacts'];
+    contacts: ContactsQuery['contacts'];
     count: ContactsQuery['contactsCount'];
   }> {
     return this.contactsGQL
@@ -27,7 +27,7 @@ export class ContactsService {
       })
       .valueChanges.pipe(
         map((result) => ({
-          data: result.data.contacts,
+          contacts: result.data.contacts,
           count: result.data.contactsCount,
         }))
       );

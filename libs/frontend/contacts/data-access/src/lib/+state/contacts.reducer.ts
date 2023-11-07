@@ -1,39 +1,33 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
+import { PaginatedResults } from '@booking/frontend-pagination-data-access';
 import { ContactsCrudActions } from './contacts.actions';
 import { ContactsEntity } from './contacts.models';
 
 export const CONTACTS_FEATURE_KEY = 'contacts';
 
 export interface ContactsState {
-  contacts: ContactsEntity[];
+  contacts: PaginatedResults<ContactsEntity> | null;
   error: any;
   isLoading: boolean;
-  total: number;
-  currentPage: number;
-  perPage: number;
 }
 
 export const initialContactsState: ContactsState = {
-  contacts: [],
+  contacts: null,
   error: null,
   isLoading: false,
-  total: 0,
-  currentPage: 1,
-  perPage: 50,
 };
 
+// TODO : keep older requests back in contacts[]
 const reducer = createReducer(
   initialContactsState,
   on(ContactsCrudActions.getContacts, (state, { page }) => ({
     ...state,
     isLoading: true,
-    currentPage: page,
   })),
   on(ContactsCrudActions.getContactsSuccess, (state, { datas }) => ({
     ...state,
-    contacts: datas.contacts,
-    total: datas.count,
+    contacts: datas,
     isLoading: false,
   })),
   on(ContactsCrudActions.getContactsFailure, (state, { error }) => ({

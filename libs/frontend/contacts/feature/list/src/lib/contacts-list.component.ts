@@ -16,10 +16,12 @@ export class BookingContactsListComponent implements OnInit {
   private readonly destroy: DestroyRef = inject(DestroyRef);
 
   contacts$ = this.contactsFacade.contacts$;
-  pagination$ = this.contactsFacade.paginationDetails$;
+  pagination$ = this.contactsFacade.pagination$;
   currentPage$ = this.contactsFacade.currentPage$;
+  total$ = this.contactsFacade.total$;
 
   pages: number[] = [];
+  nbPages = 0;
 
   constructor(private contactsFacade: ContactsFacade) {}
 
@@ -30,18 +32,25 @@ export class BookingContactsListComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroy))
       .subscribe((pagination) => {
         this.pages = this.buildPages_(
-          pagination.currentPage,
+          pagination.currentPage ?? 1,
           pagination.nbPages
         );
       });
   }
 
+  // TODO : move pagination to dedicated LIB
+
   goToPage(page: number): void {
     console.log(`goToPage : ${page}`);
-    this.contactsFacade.getContacts(page);
+
+    if (page >= 1 && page <= this.nbPages) {
+      this.contactsFacade.getContacts(page);
+    }
   }
 
   private buildPages_(current: number, total: number): number[] {
+    this.nbPages = total;
+
     if (total <= 7) {
       return [...Array(total).keys()].map((x) => ++x);
     }
