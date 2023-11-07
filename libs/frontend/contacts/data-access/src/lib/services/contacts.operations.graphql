@@ -13,6 +13,20 @@ query Contacts($skip: Int!, $take: Int!) {
   }
 }
 
+query Contact($id: String!) {
+  contact(id: $id) {
+    id
+    createdAt
+    updatedAt
+    firstname
+    name
+    email
+    phone
+    jobName
+    comments
+  }
+}
+
 mutation createContacts($contactCreateDtos: [ContactCreateDto!]!) {
   createContacts(contactCreateDtos: $contactCreateDtos) {
     id

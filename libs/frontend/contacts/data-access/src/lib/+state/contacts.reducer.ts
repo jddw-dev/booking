@@ -46,5 +46,12 @@ export const contactsReducer = createReducer(
     error,
     isLoading: false,
     loaded: false,
+  })),
+  on(ContactsCrudActions.getContactSuccess, (state, { contact }) => {
+    return contactsAdapter.addOne(contact, state);
+  }),
+  on(ContactsCrudActions.getContactFailure, (state, { error }) => ({
+    ...state,
+    error,
   }))
 );

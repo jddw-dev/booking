@@ -5,6 +5,7 @@ import {
   ContactsEffects,
   ContactsFacade,
 } from '@booking/frontend-contacts-data-access';
+import { BookingContactsDetailsComponent } from '@booking/frontend-contacts-feature-details';
 import {
   BookingContactsImportComponent,
   BookingContactsMapPropertiesComponent,
@@ -40,6 +41,11 @@ export const frontendContactsFeatureShellRoutes: Routes = [
       {
         path: 'map-properties',
         component: BookingContactsMapPropertiesComponent,
+      },
+
+      {
+        path: ':id',
+        component: BookingContactsDetailsComponent,
       },
     ],
   },

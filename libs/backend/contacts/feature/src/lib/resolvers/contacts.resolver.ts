@@ -22,6 +22,11 @@ export class ContactsResolver {
     return this.contactsService.findAll(args);
   }
 
+  @Query(() => Contact, { name: 'contact' })
+  async findOne(@Args('id') id: string): Promise<Contact | null> {
+    return this.contactsService.findOne(id);
+  }
+
   @Mutation((returns) => Contact)
   async createContact(
     @Args('contactCreateDto') contactCreateDto: ContactCreateDto

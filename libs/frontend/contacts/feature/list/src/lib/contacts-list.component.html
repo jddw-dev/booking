@@ -21,7 +21,11 @@
 
       <tbody>
         <tr *ngFor="let contact of contacts$ | async">
-          <td>{{ contact.firstname }} {{ contact.name }}</td>
+          <td>
+            <a [routerLink]="['./', contact.id]">
+              {{ contact.firstname }} {{ contact.name }}
+            </a>
+          </td>
           <td>{{ contact.email }}</td>
           <td>{{ contact.phone }}</td>
           <td>{{ contact.jobName }}</td>

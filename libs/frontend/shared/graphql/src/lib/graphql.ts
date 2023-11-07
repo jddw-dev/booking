@@ -72,10 +72,16 @@ export type MutationRegisterFromSocialArgs = {
 
 export type Query = {
   __typename?: 'Query';
+  contact: Contact;
   contacts: Array<Contact>;
   contactsCount: Scalars['Float']['output'];
   me: User;
   version: Scalars['String']['output'];
+};
+
+
+export type QueryContactArgs = {
+  id: Scalars['String']['input'];
 };
 
 
@@ -137,6 +143,13 @@ export type ContactsQueryVariables = Exact<{
 
 
 export type ContactsQuery = { __typename?: 'Query', contactsCount: number, contacts: Array<{ __typename?: 'Contact', id: string, createdAt: any, updatedAt: any, firstname?: string | null, name?: string | null, email?: string | null, phone?: string | null, jobName?: string | null, comments?: string | null }> };
+
+export type ContactQueryVariables = Exact<{
+  id: Scalars['String']['input'];
+}>;
+
+
+export type ContactQuery = { __typename?: 'Query', contact: { __typename?: 'Contact', id: string, createdAt: any, updatedAt: any, firstname?: string | null, name?: string | null, email?: string | null, phone?: string | null, jobName?: string | null, comments?: string | null } };
 
 export type CreateContactsMutationVariables = Exact<{
   contactCreateDtos: Array<ContactCreateDto> | ContactCreateDto;
@@ -231,6 +244,32 @@ export const ContactsDocument = gql`
   })
   export class ContactsGQL extends Apollo.Query<ContactsQuery, ContactsQueryVariables> {
     override document = ContactsDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const ContactDocument = gql`
+    query Contact($id: String!) {
+  contact(id: $id) {
+    id
+    createdAt
+    updatedAt
+    firstname
+    name
+    email
+    phone
+    jobName
+    comments
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class ContactGQL extends Apollo.Query<ContactQuery, ContactQueryVariables> {
+    override document = ContactDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);

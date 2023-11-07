@@ -35,4 +35,18 @@ export class ContactsEffects {
       )
     )
   );
+
+  getContact$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ContactsCrudActions.getContact),
+      switchMap(({ id }) =>
+        this.contactsService.getContact(id).pipe(
+          map((contact) => ContactsCrudActions.getContactSuccess({ contact })),
+          catchError((error) =>
+            of(ContactsCrudActions.getContactFailure({ error }))
+          )
+        )
+      )
+    )
+  );
 }

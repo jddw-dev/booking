@@ -16,6 +16,8 @@ export class ContactsFacade {
   isLoading$ = this.store.pipe(select(ContactsSelectors.selectIsLoading));
   loaded$ = this.store.pipe(select(ContactsSelectors.selectLoaded));
   contacts$ = this.store.pipe(select(ContactsSelectors.selectContacts));
+  contact$ = (id: string) =>
+    this.store.pipe(select(ContactsSelectors.selectContact(id)));
   pagination$ = this.store.pipe(select(ContactsSelectors.selectPagination));
   currentPage$ = this.store.pipe(select(ContactsSelectors.selectCurrentPage));
   total$ = this.store.pipe(select(ContactsSelectors.selectTotal));
@@ -32,5 +34,9 @@ export class ContactsFacade {
 
   getContacts(page = 1) {
     this.store.dispatch(ContactsCrudActions.getContacts({ page }));
+  }
+
+  getContact(id: string) {
+    this.store.dispatch(ContactsCrudActions.getContact({ id }));
   }
 }

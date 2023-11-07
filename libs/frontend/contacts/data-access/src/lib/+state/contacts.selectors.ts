@@ -12,6 +12,9 @@ const { selectAll } = contactsAdapter.getSelectors();
 
 export const selectContacts = createSelector(selectContactsState, selectAll);
 
+export const selectContact = (id: string) =>
+  createSelector(selectContactsState, (state) => state.entities[id]);
+
 export const selectTotal = createSelector(
   selectContactsState,
   (state) => state.pagination?.total

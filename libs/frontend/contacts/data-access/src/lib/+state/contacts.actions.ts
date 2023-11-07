@@ -10,5 +10,8 @@ export const ContactsCrudActions = createActionGroup({
       datas: PaginatedResults<ContactEntity>;
     }>(),
     'Get Contacts Failure': props<{ error: any }>(),
+    'Get Contact': props<{ id: string }>(),
+    'Get Contact Success': props<{ contact: ContactEntity }>(),
+    'Get Contact Failure': props<{ error: any }>(),
   },
 });
