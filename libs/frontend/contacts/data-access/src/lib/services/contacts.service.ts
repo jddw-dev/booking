@@ -18,7 +18,8 @@ export class ContactsService {
 
   getContacts(
     page = 1,
-    perPage = 25
+    perPage = 25,
+    search?: string
   ): Observable<{
     contacts: ContactsQuery['contacts'];
     count: ContactsQuery['contactsCount'];
@@ -27,6 +28,7 @@ export class ContactsService {
       .watch({
         skip: (page - 1) * perPage,
         take: perPage,
+        search: search,
       })
       .valueChanges.pipe(
         map((result) => ({

@@ -13,17 +13,35 @@ export class ContactsService {
     private readonly contactRepository: Repository<Contact>
   ) {}
 
-  async count(): Promise<number> {
-    return this.contactRepository.count();
+  async count(search?: string): Promise<number> {
+    const query = this.getQuery(search);
+
+    return query.getCount();
   }
 
   async findAll(
     args: FetchContactsArgs = { skip: 0, take: 50 }
   ): Promise<Contact[]> {
-    return this.contactRepository.find({
-      skip: args.skip,
-      take: args.take,
-    });
+    const query = this.getQuery(args.search);
+
+    query.skip(args.skip).take(args.take);
+
+    return query.getMany();
+  }
+
+  private getQuery(search?: string) {
+    const query = this.contactRepository.createQueryBuilder('contact');
+
+    if (search) {
+      query.where(
+        "CONCAT(contact.firstname, ' ', contact.name) ILIKE :search",
+        {
+          search: `%${search}%`,
+        }
+      );
+    }
+
+    return query;
   }
 
   async findAllAndCount(

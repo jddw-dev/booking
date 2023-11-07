@@ -13,7 +13,6 @@ npx nx run frontend-shared-graphql:codegen
 # Roadmap
 
 - Refactor / Rendre propre l'import des contacts
-- Ajout pagination liste contacts
 - Ajout loader
 - Ajout alertes
 - Ajout filtres liste contacts
@@ -22,3 +21,12 @@ npx nx run frontend-shared-graphql:codegen
 - Envoi d'email à un contact
 - Séquences d'email
 - Implémenter tests unitaires / E2E !!
+- Composants UI pour tabs
+- Ajouter toutes les propriétés d'un contact (adresse, etc..)
+- Contact : création / édition
+- Contact : gestion de plusieurs emails
+- Contact : gestion de plusieurs téléphones
+
+# Fait
+
+- Pagination liste contacts

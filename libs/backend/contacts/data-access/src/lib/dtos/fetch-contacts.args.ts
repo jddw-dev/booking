@@ -11,4 +11,7 @@ export class FetchContactsArgs {
   @Min(1)
   @Max(100)
   take = 50;
+
+  @Field(() => String, { nullable: true })
+  search?: string;
 }

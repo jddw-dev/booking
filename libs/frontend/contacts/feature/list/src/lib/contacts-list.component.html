@@ -8,6 +8,18 @@
   <div class="card-body">
     <p>{{ total$ | async }} contacts</p>
 
+    <div class="row">
+      <div class="col-md-6">
+        <input
+          type="text"
+          class="form-control mb-3"
+          placeholder="Rechercher..."
+          [ngModel]="search"
+          (ngModelChange)="onSearchChanged($event)"
+        />
+      </div>
+    </div>
+
     <table class="table table-responsive table-striped">
       <thead>
         <tr>

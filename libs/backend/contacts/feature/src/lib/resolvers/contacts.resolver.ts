@@ -13,8 +13,10 @@ export class ContactsResolver {
   constructor(private readonly contactsService: ContactsService) {}
 
   @Query(() => Number, { name: 'contactsCount' })
-  async getCount(): Promise<number> {
-    return this.contactsService.count();
+  async getCount(
+    @Args('search', { nullable: true }) search?: string
+  ): Promise<number> {
+    return this.contactsService.count(search);
   }
 
   @Query(() => [Contact], { name: 'contacts' })

@@ -86,8 +86,14 @@ export type QueryContactArgs = {
 
 
 export type QueryContactsArgs = {
+  search?: InputMaybe<Scalars['String']['input']>;
   skip?: Scalars['Int']['input'];
   take?: Scalars['Int']['input'];
+};
+
+
+export type QueryContactsCountArgs = {
+  search?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type RegisterInput = {
@@ -139,6 +145,7 @@ export type RegisterFromSocialMutation = { __typename?: 'Mutation', registerFrom
 export type ContactsQueryVariables = Exact<{
   skip: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
+  search?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
@@ -223,9 +230,9 @@ export const RegisterFromSocialDocument = gql`
     }
   }
 export const ContactsDocument = gql`
-    query Contacts($skip: Int!, $take: Int!) {
-  contactsCount
-  contacts(skip: $skip, take: $take) {
+    query Contacts($skip: Int!, $take: Int!, $search: String) {
+  contactsCount(search: $search)
+  contacts(skip: $skip, take: $take, search: $search) {
     id
     createdAt
     updatedAt

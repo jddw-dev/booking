@@ -5,7 +5,11 @@ import { ContactEntity } from './contacts.models';
 export const ContactsCrudActions = createActionGroup({
   source: 'Contacts/Crud',
   events: {
-    'Get Contacts': props<{ page: number; perPage?: number }>(),
+    'Get Contacts': props<{
+      page: number;
+      perPage?: number;
+      search?: string;
+    }>(),
     'Get Contacts Success': props<{
       datas: PaginatedResults<ContactEntity>;
     }>(),

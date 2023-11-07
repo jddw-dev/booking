@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 
+import { PAGINATION_CONSTANTS } from '@booking/frontend-pagination-data-access';
 import { take } from 'rxjs';
 import { ContactsCrudActions } from './contacts.actions';
 import * as ContactsSelectors from './contacts.selectors';
@@ -32,8 +33,14 @@ export class ContactsFacade {
       .subscribe((loaded) => !loaded && this.getContacts());
   }
 
-  getContacts(page = 1) {
-    this.store.dispatch(ContactsCrudActions.getContacts({ page }));
+  getContacts(
+    page = 1,
+    perPage = PAGINATION_CONSTANTS.DEFAULT_PER_PAGE,
+    search?: string
+  ) {
+    this.store.dispatch(
+      ContactsCrudActions.getContacts({ page, perPage, search })
+    );
   }
 
   getContact(id: string) {

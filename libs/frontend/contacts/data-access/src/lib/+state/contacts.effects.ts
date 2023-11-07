@@ -14,8 +14,8 @@ export class ContactsEffects {
   init$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ContactsCrudActions.getContacts),
-      switchMap(({ page, perPage }) =>
-        this.contactsService.getContacts(page).pipe(
+      switchMap(({ page, perPage, search }) =>
+        this.contactsService.getContacts(page, perPage, search).pipe(
           map((datas) =>
             ContactsCrudActions.getContactsSuccess({
               datas: {

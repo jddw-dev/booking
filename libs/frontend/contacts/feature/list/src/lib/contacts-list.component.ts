@@ -1,8 +1,10 @@
 import { AsyncPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ContactsFacade } from '@booking/frontend-contacts-data-access';
+import { PAGINATION_CONSTANTS } from '@booking/frontend-pagination-data-access';
 import { LetDirective } from '@ngrx/component';
 
 @Component({
@@ -10,7 +12,15 @@ import { LetDirective } from '@ngrx/component';
   selector: 'booking-contacts-list',
   templateUrl: './contacts-list.component.html',
   styleUrls: ['./contacts-list.component.scss'],
-  imports: [NgIf, NgFor, NgClass, LetDirective, AsyncPipe, RouterLink],
+  imports: [
+    NgIf,
+    NgFor,
+    NgClass,
+    LetDirective,
+    AsyncPipe,
+    RouterLink,
+    FormsModule,
+  ],
 })
 export class BookingContactsListComponent implements OnInit {
   private readonly destroy: DestroyRef = inject(DestroyRef);
@@ -22,6 +32,8 @@ export class BookingContactsListComponent implements OnInit {
 
   pages: number[] = [];
   nbPages = 0;
+
+  search = '';
 
   constructor(private contactsFacade: ContactsFacade) {}
 
@@ -64,5 +76,17 @@ export class BookingContactsListComponent implements OnInit {
     }
 
     return [1, 2, 3, 4, 5, -1, total];
+  }
+
+  // TODO : improve and move filters to dedicated LIB
+  onSearchChanged(search: string) {
+    this.search = search;
+
+    // TODO : mettre dans le store !
+    this.contactsFacade.getContacts(
+      1,
+      PAGINATION_CONSTANTS.DEFAULT_PER_PAGE,
+      this.search
+    );
   }
 }
