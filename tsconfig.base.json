@@ -58,6 +58,9 @@
       "@booking/frontend-contacts-data-access": [
         "libs/frontend/contacts/data-access/src/index.ts"
       ],
+      "@booking/frontend-contacts-feature-details": [
+        "libs/frontend/contacts/feature/details/src/index.ts"
+      ],
       "@booking/frontend-contacts-feature-import": [
         "libs/frontend/contacts/feature/import/src/index.ts"
       ],

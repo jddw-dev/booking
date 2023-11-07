@@ -1,25 +1,28 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { CONTACTS_FEATURE_KEY, ContactsState } from './contacts.reducer';
+import {
+  CONTACTS_FEATURE_KEY,
+  ContactsState,
+  contactsAdapter,
+} from './contacts.reducer';
 
 export const selectContactsState =
   createFeatureSelector<ContactsState>(CONTACTS_FEATURE_KEY);
 
-export const selectContacts = createSelector(
-  selectContactsState,
-  (state) => state.contacts?.items
-);
+const { selectAll } = contactsAdapter.getSelectors();
+
+export const selectContacts = createSelector(selectContactsState, selectAll);
 
 export const selectTotal = createSelector(
   selectContactsState,
-  (state) => state.contacts?.total
+  (state) => state.pagination?.total
 );
 
 const getNbPages = (state: ContactsState) => {
-  if (!state.contacts) {
+  if (!state.pagination) {
     return 0;
   }
 
-  return Math.ceil(state.contacts.total / state.contacts.perPage);
+  return Math.ceil(state.pagination.total / state.pagination.perPage);
 };
 
 export const selectNbPages = createSelector(selectContactsState, (state) =>
@@ -30,18 +33,18 @@ export const selectPagination = createSelector(
   selectContactsState,
   (state) => ({
     nbPages: getNbPages(state),
-    currentPage: state.contacts?.page,
+    currentPage: state.pagination?.page,
   })
 );
 
 export const selectCurrentPage = createSelector(
   selectContactsState,
-  (state) => state.contacts?.page
+  (state) => state.pagination?.page
 );
 
 export const selectPerPage = createSelector(
   selectContactsState,
-  (state) => state.contacts?.perPage
+  (state) => state.pagination?.perPage
 );
 
 export const selectIsLoading = createSelector(

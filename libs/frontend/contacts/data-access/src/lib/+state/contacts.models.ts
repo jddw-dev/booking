@@ -1,4 +1,4 @@
-export class ContactsEntity {
+export class ContactEntity {
   id: string;
   createdAt: Date;
   updatedAt: Date;

@@ -19,9 +19,11 @@ export class ContactsEffects {
           map((datas) =>
             ContactsCrudActions.getContactsSuccess({
               datas: {
-                page: page,
-                perPage: perPage ?? PAGINATION_CONSTANTS.DEFAULT_PER_PAGE,
-                total: datas.count,
+                pagination: {
+                  page: page,
+                  perPage: perPage ?? PAGINATION_CONSTANTS.DEFAULT_PER_PAGE,
+                  total: datas.count,
+                },
                 items: datas.contacts,
               },
             })

@@ -1,38 +1,46 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 
-import { PaginatedResults } from '@booking/frontend-pagination-data-access';
+import { Pagination } from '@booking/frontend-pagination-data-access';
 import { ContactsCrudActions } from './contacts.actions';
-import { ContactsEntity } from './contacts.models';
+import { ContactEntity } from './contacts.models';
+
+import { EntityAdapter, EntityState, createEntityAdapter } from '@ngrx/entity';
 
 export const CONTACTS_FEATURE_KEY = 'contacts';
 
-export interface ContactsState {
-  contacts: PaginatedResults<ContactsEntity> | null;
+export interface ContactsState extends EntityState<ContactEntity> {
+  pagination: Pagination | null;
   error: any;
   isLoading: boolean;
   loaded: boolean;
 }
 
-export const initialContactsState: ContactsState = {
-  contacts: null,
-  error: null,
-  isLoading: false,
-  loaded: false,
-};
+export const contactsAdapter: EntityAdapter<ContactEntity> =
+  createEntityAdapter<ContactEntity>();
+
+export const initialContactsState: ContactsState =
+  contactsAdapter.getInitialState({
+    pagination: null,
+    error: null,
+    isLoading: false,
+    loaded: false,
+  });
 
 // TODO : keep older requests back in contacts[]
-const reducer = createReducer(
+export const contactsReducer = createReducer(
   initialContactsState,
   on(ContactsCrudActions.getContacts, (state, { page }) => ({
     ...state,
     isLoading: true,
   })),
-  on(ContactsCrudActions.getContactsSuccess, (state, { datas }) => ({
-    ...state,
-    contacts: datas,
-    isLoading: false,
-    loaded: true,
-  })),
+  on(ContactsCrudActions.getContactsSuccess, (state, { datas }) => {
+    return contactsAdapter.setAll(datas.items, {
+      ...state,
+      pagination: datas.pagination,
+      isLoading: false,
+      loaded: true,
+    });
+  }),
   on(ContactsCrudActions.getContactsFailure, (state, { error }) => ({
     ...state,
     error,
@@ -40,10 +48,3 @@ const reducer = createReducer(
     loaded: false,
   }))
 );
-
-export function contactsReducer(
-  state: ContactsState | undefined,
-  action: Action
-) {
-  return reducer(state, action);
-}
