@@ -1,3 +1,85 @@
 <div *ngIf="contact$ | async as contact">
-  {{ contact.firstname }} {{ contact.name }}
+  <div class="row">
+    <div class="col-md-3">
+      <div class="card mb-3">
+        <div class="card-body text-center">
+          <div class="card-title mb-0">
+            {{ contact.firstname }} {{ contact.name }}
+          </div>
+          <div class="text-muted mb-2">{{ contact.jobName }}</div>
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div class="card-body">
+          <ul class="list-unstyled mb-0">
+            <li class="mb-1">
+              <strong>Créé :</strong>
+              {{ contact.createdAt | date : 'dd/MM/yyyy' }}
+            </li>
+
+            <li class="mb-1">
+              <strong>Mis à jour :</strong>
+              {{ contact.updatedAt | date : 'dd/MM/yyyy' }}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div class="card-header">
+          <div class="card-title">Informations de contact</div>
+        </div>
+
+        <div class="card-body">
+          <ul class="list-unstyled mb-0">
+            <li class="mb-1">
+              {{ contact.email }}
+            </li>
+
+            <li class="mb-1">
+              {{ contact.phone }}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div class="card-header">
+          <div class="card-title">Commentaires</div>
+        </div>
+
+        <div class="card-body">
+          {{ contact.comments }}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-9">
+      <div class="tab">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" [routerLink]="['./']">Historique</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['./emails']">Emails</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['./calls']">Appels</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['./tasks']">Tâches</a>
+          </li>
+        </ul>
+
+        <div class="tab-content">
+          <div class="tab-pane active">
+            <h4 class="tab-title">Historique</h4>
+
+            <p>Ici l'historique du contact</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -1,7 +1,7 @@
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe, DatePipe, NgIf } from '@angular/common';
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import {
   ContactEntity,
   ContactsFacade,
@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
   selector: 'booking-contacts-details',
   templateUrl: './contacts-details.component.html',
   styleUrls: ['./contacts-details.component.scss'],
-  imports: [NgIf, AsyncPipe],
+  imports: [NgIf, AsyncPipe, DatePipe, RouterLink],
 })
 export class BookingContactsDetailsComponent implements OnInit {
   private readonly destroy: DestroyRef = inject(DestroyRef);
