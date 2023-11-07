@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 
+import { take } from 'rxjs';
 import { ContactsCrudActions } from './contacts.actions';
 import * as ContactsSelectors from './contacts.selectors';
 
@@ -13,6 +14,7 @@ export class ContactsFacade {
    * and expose them as observables through the facade.
    */
   isLoading$ = this.store.pipe(select(ContactsSelectors.selectIsLoading));
+  loaded$ = this.store.pipe(select(ContactsSelectors.selectLoaded));
   contacts$ = this.store.pipe(select(ContactsSelectors.selectContacts));
   pagination$ = this.store.pipe(select(ContactsSelectors.selectPagination));
   currentPage$ = this.store.pipe(select(ContactsSelectors.selectCurrentPage));
@@ -23,7 +25,9 @@ export class ContactsFacade {
    * or more tasks in your Effects.
    */
   init() {
-    this.store.dispatch(ContactsCrudActions.getContacts({ page: 1 }));
+    this.loaded$
+      .pipe(take(1))
+      .subscribe((loaded) => !loaded && this.getContacts());
   }
 
   getContacts(page = 1) {

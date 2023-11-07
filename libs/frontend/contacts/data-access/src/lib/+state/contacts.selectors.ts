@@ -48,3 +48,8 @@ export const selectIsLoading = createSelector(
   selectContactsState,
   (state) => state.isLoading
 );
+
+export const selectLoaded = createSelector(
+  selectContactsState,
+  (state) => state.loaded
+);

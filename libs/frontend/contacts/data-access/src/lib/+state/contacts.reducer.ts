@@ -10,12 +10,14 @@ export interface ContactsState {
   contacts: PaginatedResults<ContactsEntity> | null;
   error: any;
   isLoading: boolean;
+  loaded: boolean;
 }
 
 export const initialContactsState: ContactsState = {
   contacts: null,
   error: null,
   isLoading: false,
+  loaded: false,
 };
 
 // TODO : keep older requests back in contacts[]
@@ -29,11 +31,13 @@ const reducer = createReducer(
     ...state,
     contacts: datas,
     isLoading: false,
+    loaded: true,
   })),
   on(ContactsCrudActions.getContactsFailure, (state, { error }) => ({
     ...state,
     error,
     isLoading: false,
+    loaded: false,
   }))
 );
 
