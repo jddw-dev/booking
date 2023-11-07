@@ -21,6 +21,8 @@ export type Scalars = {
 
 export type Contact = {
   __typename?: 'Contact';
+  bookingPeriod?: Maybe<Scalars['String']['output']>;
+  city?: Maybe<Scalars['String']['output']>;
   comments?: Maybe<Scalars['String']['output']>;
   createdAt: Scalars['DateTime']['output'];
   email?: Maybe<Scalars['String']['output']>;
@@ -30,7 +32,9 @@ export type Contact = {
   name?: Maybe<Scalars['String']['output']>;
   owner: User;
   phone?: Maybe<Scalars['String']['output']>;
+  type?: Maybe<Scalars['String']['output']>;
   updatedAt: Scalars['DateTime']['output'];
+  zipcode?: Maybe<Scalars['String']['output']>;
 };
 
 export type ContactCreateDto = {
@@ -149,14 +153,14 @@ export type ContactsQueryVariables = Exact<{
 }>;
 
 
-export type ContactsQuery = { __typename?: 'Query', contactsCount: number, contacts: Array<{ __typename?: 'Contact', id: string, createdAt: any, updatedAt: any, firstname?: string | null, name?: string | null, email?: string | null, phone?: string | null, jobName?: string | null, comments?: string | null }> };
+export type ContactsQuery = { __typename?: 'Query', contactsCount: number, contacts: Array<{ __typename?: 'Contact', id: string, createdAt: any, updatedAt: any, firstname?: string | null, name?: string | null, email?: string | null, phone?: string | null, type?: string | null, jobName?: string | null, zipcode?: string | null, city?: string | null, bookingPeriod?: string | null, comments?: string | null }> };
 
 export type ContactQueryVariables = Exact<{
   id: Scalars['String']['input'];
 }>;
 
 
-export type ContactQuery = { __typename?: 'Query', contact: { __typename?: 'Contact', id: string, createdAt: any, updatedAt: any, firstname?: string | null, name?: string | null, email?: string | null, phone?: string | null, jobName?: string | null, comments?: string | null } };
+export type ContactQuery = { __typename?: 'Query', contact: { __typename?: 'Contact', id: string, createdAt: any, updatedAt: any, firstname?: string | null, name?: string | null, email?: string | null, phone?: string | null, type?: string | null, jobName?: string | null, zipcode?: string | null, city?: string | null, bookingPeriod?: string | null, comments?: string | null } };
 
 export type CreateContactsMutationVariables = Exact<{
   contactCreateDtos: Array<ContactCreateDto> | ContactCreateDto;
@@ -240,7 +244,11 @@ export const ContactsDocument = gql`
     name
     email
     phone
+    type
     jobName
+    zipcode
+    city
+    bookingPeriod
     comments
   }
 }
@@ -266,7 +274,11 @@ export const ContactDocument = gql`
     name
     email
     phone
+    type
     jobName
+    zipcode
+    city
+    bookingPeriod
     comments
   }
 }

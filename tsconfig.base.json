@@ -30,6 +30,9 @@
       "@booking/backend-contacts-feature": [
         "libs/backend/contacts/feature/src/index.ts"
       ],
+      "@booking/backend-email-data-access": [
+        "libs/backend/email/data-access/src/index.ts"
+      ],
       "@booking/backend-firebase-feature": [
         "libs/backend/firebase/feature/src/index.ts"
       ],

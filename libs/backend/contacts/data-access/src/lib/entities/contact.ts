@@ -50,9 +50,27 @@ export class Contact {
   @Field({ nullable: true })
   phone?: string;
 
+  // Festival, etc.. À reporter sur structure à terme
+  @Column({ nullable: true })
+  @Field({ nullable: true })
+  type?: string;
+
   @Column({ nullable: true })
   @Field({ nullable: true })
   jobName?: string;
+
+  // TODO : vrai objet adress
+  @Column({ nullable: true })
+  @Field({ nullable: true })
+  zipcode?: string;
+
+  @Column({ nullable: true })
+  @Field({ nullable: true })
+  city?: string;
+
+  @Column({ nullable: true })
+  @Field({ nullable: true })
+  bookingPeriod?: string;
 
   @Column({ nullable: true })
   @Field({ nullable: true })

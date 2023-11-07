@@ -8,7 +8,11 @@ query Contacts($skip: Int!, $take: Int!, $search: String) {
     name
     email
     phone
+    type
     jobName
+    zipcode
+    city
+    bookingPeriod
     comments
   }
 }
@@ -22,7 +26,11 @@ query Contact($id: String!) {
     name
     email
     phone
+    type
     jobName
+    zipcode
+    city
+    bookingPeriod
     comments
   }
 }

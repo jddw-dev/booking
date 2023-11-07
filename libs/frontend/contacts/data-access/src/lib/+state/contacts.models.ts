@@ -6,6 +6,9 @@ export class ContactEntity {
   name?: string | null;
   email?: string | null;
   phone?: string | null;
+  zipcode?: string | null;
+  city?: string | null;
+  type?: string | null;
   jobName?: string | null;
   comments?: string | null;
 }
