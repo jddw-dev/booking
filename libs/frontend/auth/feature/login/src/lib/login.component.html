@@ -7,8 +7,11 @@
             <div class="modal-body">
               <div class="h5 modal-title text-center">
                 <h4 class="mt-2">
-                  <div>Welcome,</div>
-                  <span>Please sign in to your account below.</span>
+                  <div>Bienvenue,</div>
+                  <span
+                    >Merci de renseigner vos informations de connexion
+                    ci-dessous.</span
+                  >
                 </h4>
               </div>
 
@@ -25,7 +28,9 @@
                   *ngIf="submitted && f.email.errors"
                   class="invalid-feedback"
                 >
-                  <div *ngIf="f.email.errors.required">Email is required</div>
+                  <div *ngIf="f.email.errors.required">
+                    L'email est nécessaire
+                  </div>
                 </div>
               </div>
 
@@ -43,7 +48,7 @@
                   class="invalid-feedback"
                 >
                   <div *ngIf="f.password.errors.required">
-                    Password is required
+                    Le mot de passe est nécessaire
                   </div>
                 </div>
               </div>
@@ -55,7 +60,7 @@
               <div class="divider"></div>
 
               <div class="text-center">
-                Or <br />
+                Ou <br />
                 <!-- <google-signin-btn
                   (click)="onGoogleLogin()"
                 ></google-signin-btn> -->
@@ -64,9 +69,9 @@
               <div class="divider"></div>
 
               <h6 class="mb-0 text-center">
-                No account ?
+                Pas encore de compte ?
                 <a routerLink="/auth/register" class="text-primary"
-                  >Sign up now</a
+                  >Inscrivez vous</a
                 >
               </h6>
             </div>
@@ -78,7 +83,7 @@
                     *ngIf="loading"
                     class="spinner-border spinner-border-sm me-1"
                   ></span>
-                  Login
+                  Connexion
                 </button>
               </div>
             </div>
