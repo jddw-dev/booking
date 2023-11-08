@@ -15,7 +15,22 @@ export class ContactCreateDto {
   phone?: string;
 
   @Field({ nullable: true })
+  type?: string;
+
+  @Field({ nullable: true })
   jobName?: string;
+
+  @Field({ nullable: true })
+  zipcode?: string;
+
+  @Field({ nullable: true })
+  city?: string;
+
+  @Field({ nullable: true })
+  bookingPeriod?: string;
+
+  @Field({ nullable: true })
+  eventPeriod?: string;
 
   @Field({ nullable: true })
   comments?: string;

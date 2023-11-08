@@ -74,5 +74,9 @@ export class Contact {
 
   @Column({ nullable: true })
   @Field({ nullable: true })
+  eventPeriod?: string;
+
+  @Column({ nullable: true })
+  @Field({ nullable: true })
   comments?: string;
 }

@@ -1,4 +1,4 @@
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, KeyValuePipe, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -16,12 +16,37 @@ import { take } from 'rxjs';
   selector: 'booking-contacts-map-properties',
   templateUrl: './map-properties.component.html',
   styleUrls: ['./map-properties.component.scss'],
-  imports: [NgIf, NgFor, AsyncPipe, FormsModule, ReactiveFormsModule],
+  imports: [
+    NgIf,
+    NgFor,
+    KeyValuePipe,
+    AsyncPipe,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
 })
 export class BookingContactsMapPropertiesComponent implements OnInit {
   decodedFile$ = this.xlsParserFacade.decodedFile$;
 
   form: FormGroup;
+
+  readonly propertiesToMap = [
+    { name: 'firstname', displayName: 'Prénom', value: null },
+    { name: 'name', displayName: 'Nom', value: null },
+    { name: 'email', displayName: 'Email', value: null },
+    { name: 'phone', displayName: 'Téléphone', value: null },
+    { name: 'type', displayName: 'Type', value: null },
+    { name: 'jobName', displayName: 'Intitulé du poste', value: null },
+    { name: 'zipcode', displayName: 'Code postal', value: null },
+    { name: 'city', displayName: 'Ville', value: null },
+    {
+      name: 'bookingPeriod',
+      displayName: 'Période de programmation',
+      value: null,
+    },
+    { name: 'eventPeriod', displayName: "Période d'événement", value: null },
+    { name: 'comments', displayName: 'Commentaires', value: null },
+  ];
 
   constructor(
     private xlsParserFacade: XlsParserFacade,
@@ -31,14 +56,11 @@ export class BookingContactsMapPropertiesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.form = this.formBuilder.group({
-      firstname: null,
-      name: null,
-      email: null,
-      phone: null,
-      jobName: null,
-      comments: null,
-    });
+    const formFields: any = {};
+    for (const property of this.propertiesToMap) {
+      formFields[property.name] = null;
+    }
+    this.form = this.formBuilder.group(formFields);
   }
 
   get f() {
@@ -46,14 +68,10 @@ export class BookingContactsMapPropertiesComponent implements OnInit {
   }
 
   validatePropertiesMapping() {
-    const mapping = {
-      firstname: this.f.firstname.value,
-      name: this.f.name.value,
-      email: this.f.email.value,
-      phone: this.f.phone.value,
-      jobName: this.f.jobName.value,
-      comments: this.f.comments.value,
-    };
+    const mapping: any = {};
+    for (const property of this.propertiesToMap) {
+      mapping[property.name] = this.f[property.name].value;
+    }
 
     this.decodedFile$.pipe(take(1)).subscribe((decodedFile) => {
       if (decodedFile) {

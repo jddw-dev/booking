@@ -2,85 +2,14 @@
 
 <div *ngIf="decodedFile$ | async as decodedFile">
   <form [formGroup]="form" (ngSubmit)="validatePropertiesMapping()">
-    <div class="mb-3">
-      <label for="firstnameMapping">Prénom</label>
+    <div class="mb-3" *ngFor="let propertyToMap of propertiesToMap">
+      <label for="property-{{ propertyToMap.name }}">{{
+        propertyToMap.displayName
+      }}</label>
       <select
-        id="firstnameMapping"
+        id="property-{{ propertyToMap.name }}"
         class="form-control"
-        formControlName="firstname"
-      >
-        <option value=""></option>
-        <option
-          *ngFor="let property of decodedFile.properties; index as index"
-          [value]="index"
-        >
-          {{ property }}
-        </option>
-      </select>
-    </div>
-
-    <div class="mb-3">
-      <label for="nameMapping">Nom</label>
-      <select id="nameMapping" class="form-control" formControlName="name">
-        <option value=""></option>
-        <option
-          *ngFor="let property of decodedFile.properties; index as index"
-          [value]="index"
-        >
-          {{ property }}
-        </option>
-      </select>
-    </div>
-
-    <div class="mb-3">
-      <label for="emailMapping">Email</label>
-      <select id="emailMapping" class="form-control" formControlName="email">
-        <option value=""></option>
-        <option
-          *ngFor="let property of decodedFile.properties; index as index"
-          [value]="index"
-        >
-          {{ property }}
-        </option>
-      </select>
-    </div>
-
-    <div class="mb-3">
-      <label for="phoneMapping">Téléphone</label>
-      <select id="phoneMapping" class="form-control" formControlName="phone">
-        <option value=""></option>
-        <option
-          *ngFor="let property of decodedFile.properties; index as index"
-          [value]="index"
-        >
-          {{ property }}
-        </option>
-      </select>
-    </div>
-
-    <div class="mb-3">
-      <label for="jobnameMapping">Intitulé du poste</label>
-      <select
-        id="jobnameMapping"
-        class="form-control"
-        formControlName="jobName"
-      >
-        <option value=""></option>
-        <option
-          *ngFor="let property of decodedFile.properties; index as index"
-          [value]="index"
-        >
-          {{ property }}
-        </option>
-      </select>
-    </div>
-
-    <div class="mb-3">
-      <label for="commentsMapping">Commentaires</label>
-      <select
-        id="commentsMapping"
-        class="form-control"
-        formControlName="comments"
+        [formControlName]="propertyToMap.name"
       >
         <option value=""></option>
         <option

@@ -52,7 +52,12 @@ export class ContactsService {
         name: row[mapping.name],
         email: row[mapping.email],
         phone: row[mapping.phone],
+        type: row[mapping.type],
         jobName: row[mapping.jobName],
+        zipcode: row[mapping.zipcode],
+        city: row[mapping.city],
+        bookingPeriod: row[mapping.bookingPeriod],
+        eventPeriod: row[mapping.eventPeriod],
         comments: row[mapping.comments],
       };
     });
